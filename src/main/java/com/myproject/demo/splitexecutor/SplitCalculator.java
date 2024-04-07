@@ -5,6 +5,6 @@ import com.myproject.demo.entity.TnxEntity;
 
 import java.util.List;
 
-public interface Executor {
-    List<TnxEntity.SplitTnx> execute(TnxRequest tnxRequest);
+public interface SplitCalculator {
+    List<TnxEntity.SplitTnx> calculate(TnxRequest tnxRequest);
 }

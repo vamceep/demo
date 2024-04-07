@@ -1,10 +1,10 @@
 package com.myproject.demo.factory;
 
 import com.myproject.demo.enums.SplitType;
-import com.myproject.demo.splitexecutor.ExactSplitExecutor;
-import com.myproject.demo.splitexecutor.PercentageSplitExecutor;
-import com.myproject.demo.splitexecutor.EqualSplitExecutor;
-import com.myproject.demo.splitexecutor.Executor;
+import com.myproject.demo.splitexecutor.ExactSplitSplitCalculator;
+import com.myproject.demo.splitexecutor.PercentageSplitSplitCalculator;
+import com.myproject.demo.splitexecutor.EqualSplitSplitCalculator;
+import com.myproject.demo.splitexecutor.SplitCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,23 +12,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class SplitExecutorFactory {
     @Autowired
-    ExactSplitExecutor exactSplitExecutor;
+    ExactSplitSplitCalculator exactSplitCalculator;
     @Autowired
-    EqualSplitExecutor equalSplitExecutor;
+    EqualSplitSplitCalculator equalSplitCalculator;
     @Autowired
-    PercentageSplitExecutor percentageSplitExecutor;
+    PercentageSplitSplitCalculator percentageSplitCalculator;
 
 
-    public Executor getExecutor(SplitType splitType) {
+    public SplitCalculator getCalculator(SplitType splitType) {
         switch (splitType) {
             case EQUAL -> {
-                return equalSplitExecutor;
+                return equalSplitCalculator;
             }
             case EXACT -> {
-                return exactSplitExecutor;
+                return exactSplitCalculator;
             }
             case PERCENT -> {
-                return percentageSplitExecutor;
+                return percentageSplitCalculator;
             }
         }
         throw new IllegalArgumentException("Executor not found for split type : "+ splitType);

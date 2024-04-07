@@ -17,7 +17,7 @@ public class NotificationService {
     public void notify(int transactionId) {
         TnxEntity tnx = tnxService.getTnxWithId(transactionId);
         for (TnxEntity.SplitTnx split : tnx.getSplits()) {
-            log.info("to :{}, message: {}",split.getBorrower(), MessageFormat.format("you(user_{0} owe {1} amount: {2} ",
+            log.info("to :{}, message: {}",split.getBorrower(), MessageFormat.format("you(user_{0}) owe {1} amount: {2} ",
                     split.getBorrower(), split.getLender(), split.getAmount()));
         }
     }

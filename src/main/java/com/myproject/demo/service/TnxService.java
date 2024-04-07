@@ -30,7 +30,7 @@ public class TnxService {
                 .author(request.getAuthorId())
                 .lender(request.getLenderId())
                 .date(new Date())
-                .splits(splitExecutorFactory.getExecutor(request.getSplitType()).execute(request))
+                .splits(splitExecutorFactory.getCalculator(request.getSplitType()).calculate(request))
                 .status(TnxStatus.ACTIVE)
                 .build());
         return id;
@@ -43,7 +43,7 @@ public class TnxService {
                 .author(request.getAuthorId())
                 .lender(request.getLenderId())
                 .date(new Date())
-                .splits(splitExecutorFactory.getExecutor(request.getSplitType()).execute(request))
+                .splits(splitExecutorFactory.getCalculator(request.getSplitType()).calculate(request))
                 .status(TnxStatus.ACTIVE)
                 .build());
     }

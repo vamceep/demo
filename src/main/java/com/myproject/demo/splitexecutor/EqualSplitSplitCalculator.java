@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class EqualSplitExecutor implements Executor {
+public class EqualSplitSplitCalculator implements SplitCalculator {
 
     @Override
-    public List<TnxEntity.SplitTnx> execute(TnxRequest tnxRequest) {
+    public List<TnxEntity.SplitTnx> calculate(TnxRequest tnxRequest) {
         double totalAmt = tnxRequest.getTotalAmount();
         List<TnxEntity.SplitTnx> splitTnxes = new ArrayList<>();
         int totalPeople = tnxRequest.getBorrowers().size();

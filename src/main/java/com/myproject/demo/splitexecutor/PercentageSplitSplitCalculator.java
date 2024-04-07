@@ -8,10 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ExactSplitExecutor implements Executor, SplitValidator {
+public class PercentageSplitSplitCalculator implements SplitCalculator, SplitValidator {
 
     @Override
-    public List<TnxEntity.SplitTnx> execute(TnxRequest tnxRequest) {
+    public List<TnxEntity.SplitTnx> calculate(TnxRequest tnxRequest) {
+        double totalAmt = tnxRequest.getTotalAmount();
         List<TnxEntity.SplitTnx> splitTnxes = new ArrayList<>();
         if(!isValid(tnxRequest)) {
             throw new RuntimeException("Percentage sum is not valid");
@@ -19,8 +20,10 @@ public class ExactSplitExecutor implements Executor, SplitValidator {
 
         for (String userId : tnxRequest.getSplits().keySet()) {
             if(!userId.equals(tnxRequest.getLenderId())) {
+                double percent = tnxRequest.getSplits().get(userId);
+                double amt = (totalAmt * percent)/100;
                 splitTnxes.add(TnxEntity.SplitTnx.builder()
-                        .amount(tnxRequest.getSplits().get(userId))
+                        .amount(amt)
                         .borrower(userId)
                         .lender(tnxRequest.getLenderId())
                         .build());
@@ -32,9 +35,9 @@ public class ExactSplitExecutor implements Executor, SplitValidator {
     @Override
     public boolean isValid(TnxRequest tnxRequest) {
         double total = 0;
-        for (Double amt: tnxRequest.getSplits().values()) {
-            total += amt;
+        for (Double value : tnxRequest.getSplits().values()) {
+            total += value;
         }
-        return total == tnxRequest.getTotalAmount();
+        return total == 100d;
     }
 }
