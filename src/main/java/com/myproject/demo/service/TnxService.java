@@ -23,15 +23,17 @@ public class TnxService {
         tnx = new ArrayList<>();
     }
 
-    public void addTransaction(TnxRequest request) {
+    public int addTransaction(TnxRequest request) {
+        int id = tnx.size();
         tnx.add(TnxEntity.builder()
-                .tnxId(tnx.size())
+                .tnxId(id)
                 .author(request.getAuthorId())
                 .lender(request.getLenderId())
                 .date(new Date())
                 .splits(splitExecutorFactory.getExecutor(request.getSplitType()).execute(request))
                 .status(TnxStatus.ACTIVE)
                 .build());
+        return id;
     }
 
     public void updateTransaction(UpdateTnxRequest request) {
@@ -84,5 +86,9 @@ public class TnxService {
             }
         }
         return overview;
+    }
+
+    public TnxEntity getTnxWithId(int transactionId) {
+        return tnx.stream().filter(x -> x.getTnxId() == transactionId).findFirst().get();
     }
 }

@@ -14,10 +14,10 @@ public class EqualSplitExecutor implements Executor {
     public List<TnxEntity.SplitTnx> execute(TnxRequest tnxRequest) {
         double totalAmt = tnxRequest.getTotalAmount();
         List<TnxEntity.SplitTnx> splitTnxes = new ArrayList<>();
-        int totalPeople = tnxRequest.getSplits().size();
+        int totalPeople = tnxRequest.getBorrowers().size();
         double singleShare = totalAmt/totalPeople;
 
-        for (String userId : tnxRequest.getSplits().keySet()) {
+        for (String userId : tnxRequest.getBorrowers()) {
             if(!userId.equals(tnxRequest.getLenderId())) {
                 splitTnxes.add(TnxEntity.SplitTnx.builder()
                         .amount(singleShare)

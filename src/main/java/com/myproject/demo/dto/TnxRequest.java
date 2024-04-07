@@ -3,6 +3,7 @@ package com.myproject.demo.dto;
 import com.myproject.demo.enums.SplitType;
 import lombok.*;
 
+import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -16,6 +17,7 @@ public class TnxRequest {
     String authorId;
     Metadata metadata;
     Map<String, Double> splits;
+    List<String> borrowers;
     String groupId;
 
     @AllArgsConstructor

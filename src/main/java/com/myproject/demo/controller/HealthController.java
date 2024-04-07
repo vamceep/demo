@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -55,8 +56,7 @@ public class HealthController {
                 .splitType(SplitType.EQUAL)
                 .lenderId("2")
                 .totalAmount(75.0d)
-                .splits(Map.of("1", 0d, "2", 0d, "3", 0d))
-
+                .borrowers(List.of("1", "2", "3"))
                 .build());
         log.info("-–----------–––-–----------–––");
         activeTnxsOfAllUsers = tnxService.getActiveTnxsOfAllUsers();
